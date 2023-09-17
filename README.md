@@ -13,7 +13,6 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 - MVVM
 - Media Store
 - Flow
-- Permissions
 - Coroutines
 - Glide
 - Hilt
