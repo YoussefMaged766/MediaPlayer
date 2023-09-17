@@ -11,5 +11,6 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 <img src="![2](https://github.com/YoussefMaged766/movie/assets/67120393/82ee8152-4e6a-4ca4-bbc7-2315a308ecaa)" width="250" height ="550"/>
 
 ## Videos 
-<img src="![Uploading Screenshot_2023-09-17-22-45-25-77_1a289a9b713e69d271bb37010b9d75ff.jpg" width="250" height ="550"/>
+<img src="![1 jpg](https://github.com/YoussefMaged766/movie/assets/67120393/7ea2a250-3ccb-498a-8ea3-e279e75f4d78)
+" width="250" height ="550"/>
 
