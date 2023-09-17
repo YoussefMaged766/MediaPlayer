@@ -53,18 +53,5 @@ object GalleryUtil  {
 
 
 
-    fun getFilePathFromUri(context: Context, uri: Uri): String? {
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? = context.contentResolver.query(uri, projection, null, null, null)
-        return cursor?.use {
-            val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            it.moveToFirst()
-            it.getString(columnIndex)
-        }
-    }
 
-    fun getFileFromUri(context: Context, uri: Uri): File? {
-        val filePath = getFilePathFromUri(context, uri)
-        return filePath?.let { File(it) }
-    }
 }
