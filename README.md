@@ -8,7 +8,7 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 - Organize media files by date or other criteria.
 
 ## Photos 
-<img src="![Screenshot_2023-09-17-22-45-25-77_1a289a9b713e69d271bb37010b9d75ff](https://github.com/YoussefMaged766/movie/assets/67120393/b8d9cd62-967f-467c-983e-ff3bf972e5d8)" width="250" height ="550"/>
+<img src="![1](https://github.com/YoussefMaged766/movie/assets/67120393/449c8f99-b007-4b64-8f34-725b35678bf6)" width="250" height ="550"/>
 
 ## Videos 
 <img src="![Uploading Screenshot_2023-09-17-22-45-25-77_1a289a9b713e69d271bb37010b9d75ff.jpg" width="250" height ="550"/>
