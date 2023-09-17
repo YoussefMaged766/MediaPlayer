@@ -11,5 +11,5 @@ This Android application demonstrates how to use the Android MediaStore to fetch
  ![photo](1.jpg)
 
 ## Videos 
-<img src="![video](2.jpg)" width="250" height ="550"/>
+![video](2.jpg)
 
