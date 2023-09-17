@@ -7,9 +7,9 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 - Display thumbnails of photos and videos from the device's gallery.
 - Organize media files by date or other criteria.
 
-## Photos 
- ![photo](1.jpg)
+## Video 
+ ![vodeo](1.jpg)
 
-## Videos 
-![video](2.jpg)
+## Photo 
+![photo](2.jpg)
 
