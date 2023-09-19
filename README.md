@@ -17,6 +17,6 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 - Glide
 - Hilt
 
-| ## Video | ## Photo |
+|  Video |  Photo |
 | --- | --- |
 | ![video](1.jpg) | ![photo](2.jpg) |
