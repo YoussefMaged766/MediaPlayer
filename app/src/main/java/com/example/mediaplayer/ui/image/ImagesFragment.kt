@@ -2,6 +2,7 @@ package com.example.mediaplayer.ui.image
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.database.ContentObserver
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mediaplayer.ui.adapter.ImagesAdapter
 import com.example.mediaplayer.databinding.FragmentImagesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,11 +50,19 @@ class ImagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+      initRecyclerView()
+
         initContentObserver()
         checkPermission()
         handelPermission()
 
 
+    }
+
+    private fun initRecyclerView(){
+        val layoutManager = GridLayoutManager(requireContext(), calculateSpanCount())
+        binding.recyclerViewImages.layoutManager = layoutManager
     }
 
     private fun collectStates() {
@@ -63,8 +73,16 @@ class ImagesFragment : Fragment() {
             }
         }
         binding.recyclerViewImages.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
+    private fun calculateSpanCount(): Int {
+        val orientation = resources.configuration.orientation
+        return if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            6
+        } else {
+            3
+        }
+    }
+
 
     private fun handelPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

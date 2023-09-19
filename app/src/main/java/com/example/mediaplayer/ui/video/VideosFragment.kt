@@ -2,6 +2,7 @@ package com.example.mediaplayer.ui.video
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.database.ContentObserver
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mediaplayer.ui.adapter.VideosAdapter
 import com.example.mediaplayer.databinding.FragmentVideosBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,7 @@ class VideosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
         initContentObserver()
         checkPermission()
         handelPermission()
@@ -60,6 +63,22 @@ class VideosFragment : Fragment() {
         }
         binding.recyclerViewVideos.adapter = adapter
     }
+
+    private fun initRecyclerView() {
+        binding.recyclerViewVideos.layoutManager = GridLayoutManager(
+            requireContext(),
+            calculateSpanCount()
+        )
+    }
+    private fun calculateSpanCount(): Int {
+        val orientation = resources.configuration.orientation
+        return if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            4
+        } else {
+            2
+        }
+    }
+
 
     private fun handelPermission() {
 
