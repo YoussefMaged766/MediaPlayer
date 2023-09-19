@@ -1,4 +1,4 @@
-package com.example.mediaplayer.ui
+package com.example.mediaplayer.ui.image
 
 import android.app.Application
 import android.net.Uri
@@ -29,7 +29,7 @@ class ImagesFragmentViewModel @Inject constructor(
         getAllPhotos()
     }
 
-    private fun getAllPhotos(){
+     fun getAllPhotos(){
         viewModelScope.launch (Dispatchers.IO){
             GalleryUtil.getAllPhotos(application).collect { photosList ->
                 _photos.value = photosList

@@ -1,8 +1,10 @@
-package com.example.mediaplayer.ui
+package com.example.mediaplayer.ui.video
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.database.ContentObserver
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +15,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.mediaplayer.R
-import com.example.mediaplayer.adapter.ImagesAdapter
-import com.example.mediaplayer.databinding.FragmentImagesBinding
+import com.example.mediaplayer.ui.adapter.VideosAdapter
+import com.example.mediaplayer.databinding.FragmentVideosBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ImagesFragment : Fragment() {
+class VideosFragment : Fragment() {
 
-    lateinit var binding: FragmentImagesBinding
-    private val viewModel: ImagesFragmentViewModel by viewModels()
-    private val adapter: ImagesAdapter by lazy { ImagesAdapter() }
+    lateinit var binding: FragmentVideosBinding
+    private val viewModel: VideosFragmentViewModel by viewModels()
+    private val adapter: VideosAdapter by lazy { VideosAdapter() }
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var contentObserver: ContentObserver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,26 +40,25 @@ class ImagesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentImagesBinding.inflate(inflater, container, false)
+        binding = FragmentVideosBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initContentObserver()
         checkPermission()
         handelPermission()
-
     }
 
     private fun collectStates() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.photos.collect {
+            viewModel.videos.collect {
                 adapter.submitList(it)
 
             }
         }
-        binding.recyclerViewImages.adapter = adapter
-        adapter.notifyDataSetChanged()
+        binding.recyclerViewVideos.adapter = adapter
     }
 
     private fun handelPermission() {
@@ -102,6 +103,26 @@ class ImagesFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    private fun initContentObserver() {
+        contentObserver = object : ContentObserver(null) {
+            override fun onChange(selfChange: Boolean) {
+                viewModel.getAllVideos()
+            }
+
+        }
+        requireActivity().contentResolver.registerContentObserver(
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+            true,
+            contentObserver
+
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireContext().contentResolver.unregisterContentObserver(contentObserver)
     }
 
 

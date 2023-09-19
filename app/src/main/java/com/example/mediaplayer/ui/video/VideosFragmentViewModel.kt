@@ -1,4 +1,4 @@
-package com.example.mediaplayer.ui
+package com.example.mediaplayer.ui.video
 
 import android.app.Application
 import android.net.Uri
@@ -31,7 +31,7 @@ class VideosFragmentViewModel @Inject constructor(
         getAllVideos()
     }
 
-    private fun getAllVideos(){
+     fun getAllVideos(){
         viewModelScope.launch (Dispatchers.IO){
             VideoUtil.getVideoThumbnails(application).collect {videosList ->
                 _videos.value = videosList

@@ -18,7 +18,8 @@ object VideoUtil {
         val projection = arrayOf(
             MediaStore.Video.Media._ID,
             MediaStore.Video.Media.DISPLAY_NAME,
-            MediaStore.Video.Media.SIZE
+            MediaStore.Video.Media.SIZE,
+            MediaStore.Video.Media.DURATION
         )
         val sortOrder = "${MediaStore.Video.Media.DATE_ADDED} DESC"
 
@@ -33,24 +34,24 @@ object VideoUtil {
         cursor?.use { c ->
             val idColumn = c.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
             val nameColumn = c.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
+            val durationColumn = c.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)
 
             while (c.moveToNext()) {
                 val videoId = c.getLong(idColumn)
                 val videoName = c.getString(nameColumn)
+                val videoDuration = c.getLong(durationColumn)
                 val contentUri = Uri.withAppendedPath(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     videoId.toString()
                 )
 
-                    videoList.add(VideoItem(contentUri.toString()))
+                videoList.add(VideoItem(contentUri.toString(), videoDuration))
 
             }
         }
 
         emit(videoList)
     }.flowOn(Dispatchers.IO)
-
-
 
 
 }
