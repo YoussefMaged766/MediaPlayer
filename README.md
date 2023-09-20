@@ -6,6 +6,7 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 
 - Display thumbnails of photos and videos from the device's gallery.
 - Organize media files by date or other criteria.
+- Supported Landscape mode
 
 ## Technology Used:
 - android
