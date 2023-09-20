@@ -29,7 +29,15 @@ class VideosFragment : Fragment() {
     private val viewModel: VideosFragmentViewModel by viewModels()
     private val adapter: VideosAdapter by lazy { VideosAdapter() }
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private lateinit var contentObserver: ContentObserver
+
+    private val contentObserver: ContentObserver by lazy {
+        object : ContentObserver(null) {
+            override fun onChange(selfChange: Boolean) {
+                viewModel.getAllVideos()
+            }
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +78,7 @@ class VideosFragment : Fragment() {
             calculateSpanCount()
         )
     }
+
     private fun calculateSpanCount(): Int {
         val orientation = resources.configuration.orientation
         return if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -125,12 +134,7 @@ class VideosFragment : Fragment() {
     }
 
     private fun initContentObserver() {
-        contentObserver = object : ContentObserver(null) {
-            override fun onChange(selfChange: Boolean) {
-                viewModel.getAllVideos()
-            }
 
-        }
         requireActivity().contentResolver.registerContentObserver(
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
             true,

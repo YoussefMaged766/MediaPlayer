@@ -29,9 +29,18 @@ class ImagesFragment : Fragment() {
     lateinit var binding: FragmentImagesBinding
     private val viewModel: ImagesFragmentViewModel by viewModels()
     private val adapter: ImagesAdapter by lazy { ImagesAdapter() }
-    private lateinit var contentObserver: ContentObserver
-
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+
+   private val contentObserver: ContentObserver by lazy {
+        object : ContentObserver(null) {
+            override fun onChange(selfChange: Boolean) {
+                viewModel.getAllPhotos()
+            }
+
+        }
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -179,12 +188,7 @@ class ImagesFragment : Fragment() {
     }
 
     private fun initContentObserver() {
-        contentObserver = object : ContentObserver(null) {
-            override fun onChange(selfChange: Boolean) {
-                viewModel.getAllPhotos()
-            }
 
-        }
         requireActivity().contentResolver.registerContentObserver(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             true,
