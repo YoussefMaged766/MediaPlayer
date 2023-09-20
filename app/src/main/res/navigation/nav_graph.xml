@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/imagesFragment"
         android:name="com.example.mediaplayer.ui.image.ImagesFragment"
-        android:label="fragment_images"
+        android:label="Images"
         tools:layout="@layout/fragment_images" />
     <fragment
         android:id="@+id/videosFragment"
         android:name="com.example.mediaplayer.ui.video.VideosFragment"
-        android:label="fragment_videos"
+        android:label="Videos"
         tools:layout="@layout/fragment_videos" />
 </navigation>

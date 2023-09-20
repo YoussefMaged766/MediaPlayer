@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ImagesFragment : Fragment() {
 
-    lateinit var binding: FragmentImagesBinding
+    private lateinit var binding: FragmentImagesBinding
     private val viewModel: ImagesFragmentViewModel by viewModels()
     private val adapter: ImagesAdapter by lazy { ImagesAdapter() }
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -95,7 +95,7 @@ class ImagesFragment : Fragment() {
 
     private fun handelPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // The OS version of the device is less than Android 10, open the camera or gallery
+
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.READ_MEDIA_IMAGES
@@ -107,10 +107,8 @@ class ImagesFragment : Fragment() {
                 == PackageManager.PERMISSION_GRANTED
 
             ) {
-                // Both permissions are already granted, open the camera or gallery
                 collectStates()
             } else {
-                // One or both permissions are not granted, request them
                 val permissions = arrayOf(
                     Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO
                 )
@@ -125,10 +123,8 @@ class ImagesFragment : Fragment() {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                // Both permissions are already granted, open the camera or gallery
                 collectStates()
             } else {
-                // One or both permissions are not granted, request them
                 val permissions = arrayOf(
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
@@ -152,13 +148,12 @@ class ImagesFragment : Fragment() {
                     permissions[Manifest.permission.READ_MEDIA_VIDEO] ?: false
 
                 if (isGalleryPermissionGrantedImaged && isGalleryPermissionGrantedVideos) {
-                    // Both permissions are granted, do something
+
                     collectStates()
                 } else {
-                    // One or both permissions are not granted, show a message or take some other action
                     Toast.makeText(
                         requireContext(),
-                        "Camera and gallery permissions are required",
+                        "gallery permissions are required",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -172,13 +167,11 @@ class ImagesFragment : Fragment() {
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: false
 
                 if (isGalleryPermissionGranted) {
-                    // Both permissions are granted, do something
                     collectStates()
                 } else {
-                    // One or both permissions are not granted, show a message or take some other action
                     Toast.makeText(
                         requireContext(),
-                        "Camera and gallery permissions are required",
+                        "gallery permissions are required",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

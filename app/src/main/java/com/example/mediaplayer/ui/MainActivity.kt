@@ -11,18 +11,30 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navController = findNavController(R.id.nav_host_fragment)
-        binding.navViewBot.setupWithNavController(navController)
+        setUpNavBot()
+
 
     }
+
+    private fun setUpNavBot() {
+
+        navController = findNavController(R.id.nav_host_fragment)
+        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { controller, destination, arguments ->
+            title = destination.label
+        }
+        binding.navViewBot.setupWithNavController(navController)
+        setSupportActionBar(binding.toolbar)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()

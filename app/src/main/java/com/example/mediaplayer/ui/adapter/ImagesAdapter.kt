@@ -30,7 +30,9 @@ class ImagesAdapter :ListAdapter<Uri, ImagesAdapter.viewholder>(PhotoDiffCallbac
 
     class viewholder(var binding: ImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Uri) {
+        fun bind(data: Uri,) {
+            binding.showProgressBar = true
+
             Glide.with(binding.root)
                 .asBitmap()
                 .load(data)
@@ -43,7 +45,7 @@ class ImagesAdapter :ListAdapter<Uri, ImagesAdapter.viewholder>(PhotoDiffCallbac
                         target: Target<Bitmap>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        binding.progressBar.isVisible = false
+                        binding.showProgressBar = false
                         return false
                     }
 
@@ -55,7 +57,7 @@ class ImagesAdapter :ListAdapter<Uri, ImagesAdapter.viewholder>(PhotoDiffCallbac
                         isFirstResource: Boolean
                     ): Boolean {
 
-                        binding.progressBar.isVisible = false
+                        binding.showProgressBar = false
                         return false
                     }
 

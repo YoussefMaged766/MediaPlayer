@@ -43,9 +43,12 @@ class VideosAdapter : ListAdapter<VideoItem, VideosAdapter.viewholder>(PhotoDiff
 
     class viewholder(var binding: VideoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: VideoItem) {
+        fun bind(data: VideoItem ) {
 
             binding.txtDuration.text = convertLongToTimeFormat(data.videoDuration?:0)
+
+            binding.showProgressBar = true
+            binding.showPlayIcon = false
 
             Glide.with(binding.root)
                 .asBitmap()
@@ -57,8 +60,8 @@ class VideosAdapter : ListAdapter<VideoItem, VideosAdapter.viewholder>(PhotoDiff
                         target: Target<Bitmap>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        binding.progressBar.isVisible = false
-                        binding.imgPlay.isVisible = true
+                        binding.showProgressBar = false
+                        binding.showPlayIcon = true
                         return false
                     }
 
@@ -70,8 +73,8 @@ class VideosAdapter : ListAdapter<VideoItem, VideosAdapter.viewholder>(PhotoDiff
                         isFirstResource: Boolean
                     ): Boolean {
 
-                        binding.progressBar.isVisible = false
-                        binding.imgPlay.isVisible = true
+                        binding.showProgressBar = false
+                        binding.showPlayIcon = false
                         return false
                     }
 
@@ -96,6 +99,6 @@ class VideosAdapter : ListAdapter<VideoItem, VideosAdapter.viewholder>(PhotoDiff
     }
 
     override fun onBindViewHolder(holder: viewholder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)   )
     }
 }

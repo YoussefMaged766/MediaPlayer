@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.io.File
 
-object GalleryUtil  {
+object GalleryUtil {
     fun getAllPhotos(context: Context): Flow<List<Uri>> = flow {
         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(
@@ -50,8 +50,6 @@ object GalleryUtil  {
 
         emit(photos)
     }.flowOn(Dispatchers.IO)
-
-
 
 
 }

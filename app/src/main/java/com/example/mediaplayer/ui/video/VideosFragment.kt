@@ -58,8 +58,8 @@ class VideosFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initContentObserver()
-        checkPermission()
-        handelPermission()
+        collectStates()
+
     }
 
     private fun collectStates() {
@@ -88,50 +88,6 @@ class VideosFragment : Fragment() {
         }
     }
 
-
-    private fun handelPermission() {
-
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            // Both permissions are already granted, open the camera or gallery
-            collectStates()
-        } else {
-            // One or both permissions are not granted, request them
-            val permissions = arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            permissionLauncher.launch(permissions)
-        }
-    }
-
-    private fun checkPermission() {
-
-        permissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-
-            val isGalleryPermissionGranted =
-                permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: false
-
-            if (isGalleryPermissionGranted) {
-                // Both permissions are granted, do something
-                collectStates()
-            } else {
-                // One or both permissions are not granted, show a message or take some other action
-                Toast.makeText(
-                    requireContext(),
-                    "Camera and gallery permissions are required",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
 
     private fun initContentObserver() {
 
