@@ -17,6 +17,7 @@ This Android application demonstrates how to use the Android MediaStore to fetch
 - Coroutines
 - Glide
 - Hilt
+- dataBinding
 
 |  Video |  Photo |
 | --- | --- |
